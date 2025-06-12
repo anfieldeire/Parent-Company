@@ -10,14 +10,11 @@
 function get_companies() {
 
  
-
 // get the parent companies and the company pairs from the nuvolo company table and return that into parent_data (arr with dictionaries inside)
 
  
-
     var parent_data = [];
 
-   
     var grc = new GlideRecord('x_nuvo_eam_company');
     grc.addQuery('u_parent_company', '!=', '');
     grc.addQuery('manufacturer', true);
@@ -35,10 +32,7 @@ function get_companies() {
  
         parent_instance = { "company_sysid": company_sysid, "parent_name": parent_name};
 		
-
         parent_data.push(parent_instance);
-
-       
 
     }
 
@@ -50,14 +44,11 @@ return parent_data; // an array containing multiple dicts
 function update_models(parent_data) {
 
  
-
     // updates populates the clinical model parent_company field based on a match with manufacturer  = company
 
- 
     for (i=0; i< parent_data.length; i++){
 
  
-
         var grc = new GlideRecord('x_nuvo_eam_clinical_models');
         grc.addQuery('manufacturer', parent_data[i].company_sysid );
         grc.query();
@@ -78,21 +69,17 @@ function update_models(parent_data) {
 function update_devices(parent_data){
 
  
-
     // updates populates the clinical device parent_company field based on a match with asset manufacturer  = company
 
  
-
     for (i=0; i< parent_data.length; i++){
 
- 
         var grd = new GlideRecord('x_nuvo_eam_clinical_devices');
         grd.addQuery('asset_manufacturer', parent_data[i].company_sysid );
         grd.query();
 
         while (grd.next()) {
 
- 
             grd.u_parent_company = parent_data[i].parent_name;
             grd.update();
 
@@ -105,12 +92,10 @@ function update_devices(parent_data){
 
 function uncheck_companies(parent_data){
 
- 
 
     // Unchecks the parent_data field on the nuvolo company table
 
  
-
     for (i=0; i< parent_data.length; i++){
 
  
@@ -123,7 +108,6 @@ function uncheck_companies(parent_data){
  
                 grc.u_update_data = false;
                 grc.update();
-
 
             }
 
