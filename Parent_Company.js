@@ -12,7 +12,6 @@ function get_companies() {
  
 // get the parent companies and the company pairs from the nuvolo company table and return that into parent_data (arr with dictionaries inside)
 
- 
     var parent_data = [];
 
     var grc = new GlideRecord('x_nuvo_eam_company');
@@ -45,7 +44,6 @@ function update_models(parent_data) {
 
     for (i=0; i< parent_data.length; i++){
 
- 
         var grc = new GlideRecord('x_nuvo_eam_clinical_models');
         grc.addQuery('manufacturer', parent_data[i].company_sysid );
         grc.query();
@@ -97,10 +95,8 @@ function uncheck_companies(parent_data){
 
                 grc.u_update_data = false;
                 grc.update();
-
             }
     }      
-
 }
 
 
@@ -109,7 +105,6 @@ function main() {
  
     // This calls all the other functions. Parent data is an array, inside that a dictionary for each company and parent_company pair
 
- 
     var parent_data = get_companies();
 
     update_models(parent_data);
