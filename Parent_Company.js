@@ -23,15 +23,12 @@ function get_companies() {
 	
     while (grc.next()){
 
- 
         var parent_instance = {};
 
         var parent_name = grc.getDisplayValue('u_parent_company');
         var company_sysid = grc.getValue('sys_id');
 
- 
-        parent_instance = { "company_sysid": company_sysid, "parent_name": parent_name};
-		
+        parent_instance = { "company_sysid": company_sysid, "parent_name": parent_name};	
         parent_data.push(parent_instance);
 
     }
@@ -59,10 +56,7 @@ function update_models(parent_data) {
                 grc.update();
 
         }
-
     }
-
-
 }
 
 
@@ -84,9 +78,7 @@ function update_devices(parent_data){
             grd.update();
 
             }  
-
     }
-
 }
 
 
@@ -95,36 +87,29 @@ function uncheck_companies(parent_data){
 
     // Unchecks the parent_data field on the nuvolo company table
 
- 
     for (i=0; i< parent_data.length; i++){
 
- 
         var grc = new GlideRecord('x_nuvo_eam_company');
         grc.addQuery('sys_id', parent_data[i].company_sysid);
         grc.query();
 
             while (grc.next()){
 
- 
                 grc.u_update_data = false;
                 grc.update();
 
             }
-
     }      
 
- 
 }
 
 
 function main() {
 
  
-
     // This calls all the other functions. Parent data is an array, inside that a dictionary for each company and parent_company pair
 
  
-
     var parent_data = get_companies();
 
     update_models(parent_data);
@@ -134,8 +119,5 @@ function main() {
     uncheck_companies(parent_data);
 
  
-
-   
-
 } main();
 
